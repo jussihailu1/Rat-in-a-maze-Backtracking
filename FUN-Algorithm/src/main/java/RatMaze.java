@@ -1,10 +1,15 @@
 /* Java program to solve Rat in
  a Maze problem using backtracking */
 
-public class Application {
+import timeutil.TimeStamp;
+
+public class RatMaze {
+
+    static TimeStamp ts = new TimeStamp();
 
     // Size of the maze 
     static int N;
+    static int sol[][];
 
     /* A utility function to print  
     solution matrix sol[N][N] */
@@ -33,22 +38,22 @@ public class Application {
     prints the path in the form of 1s. Please note  
     that there may be more than one solutions, this  
     function prints one of the feasible solutions.*/
+
     boolean solveMaze(int maze[][]) {
-        int sol[][] = new int[N][N];
+        sol = new int[N][N];
 
         if (solveMazeUtil(maze, 0, 0, sol) == false) {
             System.out.print("Solution doesn't exist");
             return false;
         }
 
-        printSolution(sol);
+//        printSolution(sol);
         return true;
     }
 
     /* A recursive utility function to solve Maze  
     problem */
-    boolean solveMazeUtil(int maze[][], int x, int y,
-                          int sol[][]) {
+    boolean solveMazeUtil(int maze[][], int x, int y, int sol[][]) {
         // if (x, y is goal) return true 
         if (x == N - 1 && y == N - 1
                 && maze[x][y] == 1) {
@@ -81,15 +86,29 @@ public class Application {
     }
 
     public static void main(String args[]) {
-        Application rat = new Application();
-        int maze[][] = {
-                {1, 0, 0, 0},
-                {1, 1, 0, 1},
-                {0, 1, 0, 0},
-                {1, 1, 1, 1}
-        };
+        RatMaze rat = new RatMaze();
+
+        int size = 4;
+        int maze[][] = new int[size][size];
+
+        for (int x = 0; x < size; x++) {
+            for (int y = 0; y < size; y++) {
+                if (y == 0) {
+                    maze[x][y] = 1;
+                } else if (x == size - 1) {
+                    maze[x][y] = 1;
+                } else {
+                    maze[x][y] = 0;
+                }
+            }
+        }
 
         N = maze.length;
+
+        ts.setBegin("Begin");
         rat.solveMaze(maze);
+        ts.setEnd("End");
+        rat.printSolution(rat.sol);
+        System.out.println("Total time: " + ts.toString());
     }
 } 

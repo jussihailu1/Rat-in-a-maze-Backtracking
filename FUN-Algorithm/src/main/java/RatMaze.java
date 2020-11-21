@@ -88,7 +88,7 @@ public class RatMaze {
     public static void main(String args[]) {
         RatMaze rat = new RatMaze();
 
-        int size = 4;
+        int size = 8192;
         int maze[][] = new int[size][size];
 
         for (int x = 0; x < size; x++) {
@@ -105,10 +105,12 @@ public class RatMaze {
 
         N = maze.length;
 
-        ts.setBegin("Begin");
-        rat.solveMaze(maze);
-        ts.setEnd("End");
-        rat.printSolution(rat.sol);
-        System.out.println("Total time: " + ts.toString());
+        for (int i = 0; i < 4; i++) {
+            ts = new TimeStamp();
+            ts.setBegin("Begin");
+            rat.solveMaze(maze);
+            ts.setEnd("End");
+            System.out.println("Total time: " + ts.toString());
+        }
     }
 } 
